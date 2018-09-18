@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Alarm_Project</string>
+    <string name="Map_Button">Location to Turn Off Alarm</string>
+    <string name="Ringtone">Ringtone</string>
+    <string name="Save">Save</string>
+    <string name="Cancel">Cancel Ring</string>
+</resources>
