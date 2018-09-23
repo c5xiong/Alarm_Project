@@ -23,7 +23,7 @@
             android:process=":remote" />
 
         <activity android:name=".change_Alarm" />
-        <activity android:name=".CancelAlarm"></activity>
+        <activity android:name=".CancelAlarm"/>
     </application>
 
 </manifest>

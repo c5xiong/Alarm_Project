@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
         LinearLayout mainMenu = (LinearLayout) findViewById(R.id.linearLayout);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(-200,0,200,0);
+        layoutParams.setMargins(-700,0,200,0);
         mainMenu.setGravity(Gravity.CENTER);
         mainMenu.setLayoutParams(layoutParams);
 
         ConstraintLayout.LayoutParams layoutParamsForDelete = new ConstraintLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsForDelete.setMargins(-300,0,300,0);
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //layoutParamsForDelete.setMargins(-300,0,300,0);
         LinearLayout alarmRow = new LinearLayout(this);
         alarmRow.setGravity(Gravity.CENTER);
         alarmRow.setLayoutParams(layoutParamsForDelete);
@@ -77,22 +77,17 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
             if(resultCode == RESULT_OK){
                 newAlarms = new Button(this);
                 deleteAlarm = new Button(this);
-                //TextView newAlarm = new TextView(this);
-                if(numOfAlarms > 0) {
-                    //layoutParams.addRule(LinearLayout.ABOVE, numOfAlarms-1);
-                   // newAlarm.setLayoutParams(layoutParams);
-                }
-               // gestureDetector = new GestureDetector(this, new SingleTapConfirm());
+
                 newAlarms.setText(stuff.getStringExtra("result"));
-                newAlarms.setId((int)stuff.getIntExtra("ID", 0));
+                newAlarms.setId(stuff.getIntExtra("ID", 0));
 
                 deleteAlarm.setText("DELETE");
-                deleteAlarm.setId((int)stuff.getIntExtra("ID", 0));
+                deleteAlarm.setId(stuff.getIntExtra("ID", 0));
 
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)newAlarms.getLayoutParams();
                 LinearLayout.LayoutParams paramsForDelete =(LinearLayout.LayoutParams) deleteAlarm.getLayoutParams();
                 if(params != null) {
-                    params.width = 1000;
+                    params.width = 1250;
                     params.height = 200;
                     paramsForDelete.width = 200;
                     paramsForDelete.height = 200;
@@ -102,13 +97,13 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     paramsForDelete = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.width = 1000;
+                    params.width = 1250;
                     params.height = 200;
                     paramsForDelete.width = 200;
                     paramsForDelete.height = 200;
                 }
                 params.gravity = Gravity.CENTER;
-                paramsForDelete.gravity = Gravity.RIGHT;
+                paramsForDelete.gravity = Gravity.END;
                 newAlarms.setLayoutParams(params);
                 deleteAlarm.setLayoutParams(paramsForDelete);
                 alarmRow.addView(newAlarms);
@@ -121,14 +116,14 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
         }
         else if (requestCode == REQUEST_CODE_CHANGE){
             if(resultCode == RESULT_OK){
-                Button oldToNew = (Button) findViewById(previousID);
+                Button oldToNew = findViewById(previousID);
                 oldToNew.setText(stuff.getStringExtra("result"));
                 previousID = 0;
             }
         }
         else{
             if(resultCode == RESULT_OK){
-                Button oldToNew = (Button) findViewById(previousID);
+                Button oldToNew = findViewById(previousID);
                 mainMenu.removeView(oldToNew);
                 previousID = 0;
             }

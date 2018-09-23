@@ -92,26 +92,9 @@ public class edit_Alarm extends AppCompatActivity implements AlarmInterfaceClass
         saveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    /*setContentView(R.layout.activity_main);
-                    scrollLayout = (ScrollView) findViewById(R.id.scrollView);
-                    ((ViewGroup)(time.getParent())).removeView(time);
-                    time.setVisibility(View.GONE);
-                    time.setLayoutParams(lparams);
-                    System.out.println("Currently in saveClick()" +" " + scrollLayout);
-                    scrollLayout.addView(time);
-                    time.setVisibility(View.VISIBLE);*/
-                    //setContentView(scrollLayout);
-                    System.out.println("**************************************************************");
                     choiceOfUser = SAVE;
                     setContentView(R.layout.activity_main);
-                    /*LinearLayout mainMenu = (LinearLayout) findViewById(R.id.LinearLayout);
-                    //scrollLayout = (ScrollView) findViewById(R.id.mainScroll);
-                    if(choiceOfUser){
-                        TextView newAlarm = new TextView(getApplicationContext());
-                        newAlarm.setText(time.getText().toString());
-                        mainMenu.addView(newAlarm,0);
-                        //scrollLayout.fullScroll(ScrollView.FOCUS_DOWN);
-                    }*/
+
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("result",time.getText().toString());
                     returnIntent.putExtra("ID", idNumber);
