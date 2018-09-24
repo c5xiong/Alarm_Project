@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
         LinearLayout mainMenu = (LinearLayout) findViewById(R.id.linearLayout);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(-700,0,200,0);
+        layoutParams.setMargins(-200,0,200,0);
         mainMenu.setGravity(Gravity.CENTER);
         mainMenu.setLayoutParams(layoutParams);
 
@@ -137,55 +137,86 @@ public class MainActivity extends AppCompatActivity implements AlarmInterfaceCla
                 startActivityForResult(intent, REQUEST_CODE_CHANGE);
             }
         });*/
-        //TEMPORARY CODE AS WELL UNTIL I UNDERSTAND HOW THE SWIPE MATH WORKS
+        
         newAlarms.setOnTouchListener(new buttonSwipeMechanic(MainActivity.this) {
             @Override
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (gestureDetector.onTouchEvent(arg1)) {
+            public boolean onTouch(View arg0, MotionEvent motion) {
+                /*
+                 * Holds the location of the event in which the user pressed
+                 * down upon the screen*
+                 */
+                float x1 = 0;
+                /*
+                 * Holds the location of the event in which the user lifts his
+                 * or her finger from the screen
+                 */
+                float x2 = 0;
+                /*
+                 * Holds the difference between x1 and x2 in order to calculate
+                 * the swipe distance
+                 */
+                float result;
+                /*
+                 * This is the minimum distance to swipe the button
+                 */
+                final float MINIMUM_DIST_RIGHT = 250;
+                if (gestureDetector.onTouchEvent(motion)) {
                     previousID = newAlarms.getId();
-                    Intent intent = new Intent(MainActivity.this, edit_Alarm.class);
+                    Intent intent = new Intent(MainActivity.this,
+                            edit_Alarm.class);
                     startActivityForResult(intent, REQUEST_CODE_CHANGE);
                     return true;
                 }
                 else {
-                    onSwipeBottom();
-                    onSwipeTop();
-                    //onSwipeRight();
-                    onSwipeLeft();
+                    switch(motion.getAction()){
+                        case MotionEvent.ACTION_DOWN:
+                            x1 = motion.getX();
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            x2 = motion.getX();
+                            result = x2 - x1;
+                            if(result > 0 && result > MINIMUM_DIST_RIGHT){
+                                onSwipeRight();
+                            }
+                            else {
+                                onSwipeLeft();
+                            }
+                            break;
+                    }
                     return false;
                 }
             }
-                @Override
-                public void onSwipeTop () {
-                    Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onSwipeRight () {
+            @Override
+            public void onSwipeTop () {
+                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onSwipeRight () {
                     animateButtonForAlarm = ObjectAnimator.ofFloat(
-                            newAlarms, "translationX", 100f);
+                            newAlarms, "translationX", 200f);
                     animateButtonForDelete = ObjectAnimator.ofFloat(
-                            newAlarms, "translationX", 100f);
-                    animateButtonForAlarm.setDuration(1);
-                    animateButtonForDelete.setDuration(1);
+                            newAlarms, "translationX", 200f);
+                    animateButtonForAlarm.setDuration(0);
+                    animateButtonForDelete.setDuration(0);
                     animateButtonForAlarm.start();
                     animateButtonForDelete.start();
-                }
-                @Override
-                public void onSwipeLeft () {
+            }
+            @Override
+            public void onSwipeLeft () {
                     animateButtonForAlarm = ObjectAnimator.ofFloat(
-                            newAlarms, "translationX", -100f);
+                            newAlarms, "translationX", -200f);
                     animateButtonForDelete = ObjectAnimator.ofFloat(
-                            deleteAlarm, "translationX", -100f);
-                    animateButtonForAlarm.setDuration(1);
-                    animateButtonForDelete.setDuration(1);
+                            deleteAlarm, "translationX", -200f);
+                    animateButtonForAlarm.setDuration(0);
+                    animateButtonForDelete.setDuration(0);
                     animateButtonForAlarm.start();
                     animateButtonForDelete.start();
                     Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onSwipeBottom () {
+            }
+            @Override
+            public void onSwipeBottom () {
                     Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-                }
+            }
         });
     }
     private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
