@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class CancelAlarm extends AppCompatActivity implements AlarmInterfaceClass{
+public class CancelAlarm extends AppCompatActivity {
 
     /*
      * This contains the context from the getAlarm class which is the context
@@ -48,7 +48,7 @@ public class CancelAlarm extends AppCompatActivity implements AlarmInterfaceClas
         /*
          * This refers to the button that cancels the ring
          */
-        cancelRing = (Button) findViewById(R.id.endRing);
+        cancelRing = findViewById(R.id.endRing);
         cancelRing.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
                     ring.stop();
@@ -57,5 +57,4 @@ public class CancelAlarm extends AppCompatActivity implements AlarmInterfaceClas
             }
         );
     }
-
 }

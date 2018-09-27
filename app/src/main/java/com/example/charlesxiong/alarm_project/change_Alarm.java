@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
 
-public class change_Alarm extends AppCompatActivity implements AlarmInterfaceClass {
+public class change_Alarm extends AppCompatActivity {
 
     /* This variable is designed to hold the time the user wants to be
      * notified at.
@@ -61,57 +61,36 @@ public class change_Alarm extends AppCompatActivity implements AlarmInterfaceCla
      * out the changes
      */
     static boolean choiceOfUser = false;
-    @SuppressLint("WrongViewCast")
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit__alarm);
         calendar = Calendar.getInstance();
-        Button saveButton = (Button) findViewById(R.id.saveButton);
-        Button changeTime = (Button) findViewById(R.id.changeAlarmTime);
-        time = (TextView)findViewById(R.id.userSelectedTime);
+        Button saveButton = findViewById(R.id.saveButton);
+        Button changeTime = findViewById(R.id.changeAlarmTime);
+        time = findViewById(R.id.userSelectedTime);
 
         int hour = 0;
         int minute = 0;
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-
         createAlarm(hour, minute);
 
-        /*if(hour >= 12){
+        if(hour >= 12){
             format = morning;
         }
         else{
             format = evening;
         }
-        */
         time.setText(hour + " : " + minute + " " + format);
-        //timeOutput = new TextView(this);
-        //Problem is right below: null object reference
+
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                    /*setContentView(R.layout.activity_main);
-                    scrollLayout = (ScrollView) findViewById(R.id.scrollView);
-                    ((ViewGroup)(time.getParent())).removeView(time);
-                    time.setVisibility(View.GONE);
-                    time.setLayoutParams(lparams);
-                    System.out.println("Currently in saveClick()" +" " + scrollLayout);
-                    scrollLayout.addView(time);
-                    time.setVisibility(View.VISIBLE);*/
-                //setContentView(scrollLayout);
-                System.out.println("**************************************************************");
                 choiceOfUser = SAVE;
                 setContentView(R.layout.activity_main);
-                    /*LinearLayout mainMenu = (LinearLayout) findViewById(R.id.LinearLayout);
-                    //scrollLayout = (ScrollView) findViewById(R.id.mainScroll);
-                    if(choiceOfUser){
-                        TextView newAlarm = new TextView(getApplicationContext());
-                        newAlarm.setText(time.getText().toString());
-                        mainMenu.addView(newAlarm,0);
-                        //scrollLayout.fullScroll(ScrollView.FOCUS_DOWN);
-                    }*/
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result",time.getText().toString());
                 returnIntent.putExtra("ID", idNumber);
@@ -170,17 +149,5 @@ public class change_Alarm extends AppCompatActivity implements AlarmInterfaceCla
         alarmManager.set(AlarmManager.RTC_WAKEUP,
                 target.getTimeInMillis(), pendingIntent);
     }
-    /*protected void save(View view){
-        MainActivity update = new MainActivity();
-        time.setText(hour + " : " + minute + " " + format);
-        setContentView(R.layout.activity_main);
-        scrollLayout.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT));
-        scrollLayout.addView(timeOutput);
-        finish();
-    }*/
-    /*protected void save(){
-        System.out.println("Currently in save()");
-    }*/
 }
 

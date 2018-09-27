@@ -10,19 +10,13 @@ import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.widget.Toast;
 
-public class getAlarm  extends BroadcastReceiver implements AlarmInterfaceClass{
+public class getAlarm  extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent){
-
         Intent cancelAlarm = new Intent(context, CancelAlarm.class);
         cancelAlarm.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(cancelAlarm);
-       /*
-        Toast toast;
-        toast = Toast.makeText(context, CREATED, duration);
-        toast.show();
-        */
     }
 
 }

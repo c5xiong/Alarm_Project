@@ -21,7 +21,7 @@ import java.util.Calendar;
 import static android.app.TimePickerDialog.*;
 import static com.example.charlesxiong.alarm_project.MainActivity.previousID;
 
-public class edit_Alarm extends AppCompatActivity implements AlarmInterfaceClass{
+public class edit_Alarm extends AppCompatActivity{
 
     /* This variable is designed to hold the time the user wants to be
      * notified at.
@@ -111,7 +111,7 @@ public class edit_Alarm extends AppCompatActivity implements AlarmInterfaceClass
         });
     }
     private void cancelAlarm(PendingIntent p) {
-        System.out.println("/////////////////////////////////////////////////////////////Currently in cancelAlarm ************");
+        System.out.println("///////////////Currently in cancelAlarm ************");
         if (alarmManager != null) {
             alarmManager.cancel(p);
         }
@@ -151,12 +151,8 @@ public class edit_Alarm extends AppCompatActivity implements AlarmInterfaceClass
     private void setAlarm(Calendar target){
         time.setText(""+ target.getTime());
         Intent intent = new Intent(getBaseContext(), getAlarm.class);
-        if(previousID == 0){
-            idNumber = (int) System.currentTimeMillis();
-        }
-        else{
-            idNumber = previousID;
-        }
+
+        idNumber = ++previousID;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getBaseContext(), idNumber, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -170,17 +166,4 @@ public class edit_Alarm extends AppCompatActivity implements AlarmInterfaceClass
         alarmManager.set(AlarmManager.RTC_WAKEUP,
                 target.getTimeInMillis(), pendingIntent);
     }
-    /*protected void save(View view){
-        MainActivity update = new MainActivity();
-        time.setText(hour + " : " + minute + " " + format);
-        setContentView(R.layout.activity_main);
-        scrollLayout.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT));
-        scrollLayout.addView(timeOutput);
-        finish();
-    }*/
-    /*protected void save(){
-        System.out.println("Currently in save()");
-    }*/
-
 }

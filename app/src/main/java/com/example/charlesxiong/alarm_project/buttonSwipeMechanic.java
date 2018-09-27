@@ -4,16 +4,20 @@ import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 public class buttonSwipeMechanic implements View.OnTouchListener{
 
     private static GestureDetector detection;
+    private View button;
 
     public buttonSwipeMechanic(Context c){
         detection = new GestureDetector(c, new DetectGesture());
     }
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        button = view;
         return detection.onTouchEvent(motionEvent);
     }
     /*
@@ -38,9 +42,9 @@ public class buttonSwipeMechanic implements View.OnTouchListener{
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            onSwipeRight();
+                            onSwipeRight(button, (ViewGroup)button.getParent());
                         } else {
-                            onSwipeLeft();
+                            onSwipeLeft(button, (ViewGroup)button.getParent());
                         }
                         result = true;
                     }
@@ -60,10 +64,10 @@ public class buttonSwipeMechanic implements View.OnTouchListener{
         }
     }
 
-    public void onSwipeRight() {
+    public void onSwipeRight(View x, ViewGroup parent) {
     }
 
-    public void onSwipeLeft() {
+    public void onSwipeLeft(View y, ViewGroup parent) {
     }
 
     public void onSwipeTop() {
